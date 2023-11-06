@@ -4,8 +4,9 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
-import styles from "@/app/ui/login.module.css"  //css modules
-
+import styles from "@/app/ui/css/login.module.css"  //css modules
+import clsx from 'clsx';
+import {lusitana} from '@/app/ui/fonts'
 
 
 
@@ -19,6 +20,7 @@ export default function LoginPage() {
     })
     const [buttonDisabled, setButtonDisabled] = React.useState(false);
     const [loading, setLoading] = React.useState(false);
+    const [clicked, setClicked] = React.useState(false);
 
     console.log("user", user);
 
@@ -26,6 +28,7 @@ export default function LoginPage() {
     const onLogin = async () => {
         try {
             setLoading(true);
+            setClicked(true)
             const response = await axios.post("/api/users/login", user);
             console.log("Login success", response.data);
             toast.success("Login success");
@@ -49,7 +52,7 @@ export default function LoginPage() {
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
             <div className="flex flex-col items-center justify-center py-[200px] border border-gray-200 shadow-lg shadow-black px-[100px]">
-                <h1 className="mb-2">{loading ? "Processing" : "Login"}</h1>
+                <h1 className={`${lusitana.className} mb-2`}>{loading ? "Processing" : "Login"}</h1>
                 <hr />
                 <div className="flex items-center gap-2 mb-6">
                     <label htmlFor="email">email</label>
@@ -75,7 +78,9 @@ export default function LoginPage() {
                 </div>
                 <button
                     onClick={onLogin}
-                    className="p-2 border border-gray-300 rounded-lg my-4 focus:outline-none focus:border-gray-600">Login here</button>
+
+                    className={clsx('p-2 border border-gray-300 rounded-lg my-4 focus:outline-none focus:border-gray-600',{'bg-green-200' : clicked  })}>Login here
+                </button>
                 <Link className={styles.visitSignup} href="/signup">Visit Signup page</Link>
             </div>
         </div>
