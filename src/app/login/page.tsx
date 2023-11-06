@@ -4,6 +4,7 @@ import React, { useEffect } from "react";
 import { useRouter } from "next/navigation";
 import axios from "axios";
 import { toast } from "react-hot-toast";
+import styles from "@/app/ui/login.module.css"  //css modules
 
 
 
@@ -47,7 +48,6 @@ export default function LoginPage() {
 
     return (
         <div className="min-h-screen flex flex-col items-center justify-center">
-            <h1>Test</h1>
             <div className="flex flex-col items-center justify-center py-[200px] border border-gray-200 shadow-lg shadow-black px-[100px]">
                 <h1 className="mb-2">{loading ? "Processing" : "Login"}</h1>
                 <hr />
@@ -76,7 +76,7 @@ export default function LoginPage() {
                 <button
                     onClick={onLogin}
                     className="p-2 border border-gray-300 rounded-lg my-4 focus:outline-none focus:border-gray-600">Login here</button>
-                <Link href="/signup">Visit Signup page</Link>
+                <Link className={styles.visitSignup} href="/signup">Visit Signup page</Link>
             </div>
         </div>
     )
